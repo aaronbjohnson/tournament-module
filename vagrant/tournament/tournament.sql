@@ -12,6 +12,7 @@ CREATE DATABASE tournament;
 
 \c tournament;
 
+
 CREATE TABLE tournaments (
     id serial primary key,
     name text
