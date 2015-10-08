@@ -174,8 +174,6 @@ def swissPairings(tournament):
         first += 2
         last += 2
 
-    print pairings
-
     DB.commit()
     DB.close()
     return pairings
