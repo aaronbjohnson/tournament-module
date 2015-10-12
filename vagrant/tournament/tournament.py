@@ -39,7 +39,7 @@ def countTournaments():
     DB = connect()
     c = DB.cursor()
     c.execute("SELECT COUNT(*) FROM tournaments")
-    total = c.fetchall()[0][0]
+    total = c.fetchone()[0]
     DB.commit()
     DB.close()
     return total
@@ -49,7 +49,7 @@ def countPlayers():
     DB = connect()
     c = DB.cursor()
     c.execute("SELECT COUNT(*) FROM members")
-    total = c.fetchall()[0][0]
+    total = c.fetchone()[0]
     DB.commit()
     DB.close()
     return total
@@ -76,28 +76,28 @@ def getTournamentId(name):
     DB = connect()
     c = DB.cursor()
     c.execute("SELECT id FROM tournaments WHERE name = (%s)", (name,))
-    idNumber = c.fetchall()[0][0]
+    idNumber = c.fetchone()[0]
     DB.commit()
     DB.close()
     return idNumber
 
-def registerPlayer(name, tournament):
+def registerPlayer(name, tournamentId):
     """Adds a player to the tournament database.
   
     The database assigns a unique serial id number for the player.
   
     Args:
         name: the player's full name (need not be unique).
-        tournament: the unique ID (number) of the tournament the player is registering for.
+        tournamentId: the unique ID (number) of the tournament the player is registering for.
     """
     DB = connect()
     c = DB.cursor()
-    c.execute("INSERT INTO members (name, tournament) VALUES (%s, %s)", (name, tournament))
+    c.execute("INSERT INTO members (name, tournament) VALUES (%s, %s)", (name, tournamentId))
     DB.commit()
     DB.close()
 
 
-def playerStandings(tournament):
+def playerStandings(tournamentId):
     """Returns a list of the players and their win records, sorted by wins.
 
     The first entry in the list should be the player in first place, or a player
@@ -111,28 +111,28 @@ def playerStandings(tournament):
             matches: the number of matches the player has played
 
     Args: 
-        tournament: the unique ID (number) of the tournament.
+        tournamentId: the unique ID (number) of the tournament.
     """
 
     DB = connect()
     c = DB.cursor()
-    c.execute("SELECT id, name, wins, wins + losses AS matches FROM members WHERE tournament = %s ORDER BY wins DESC", (tournament,))
+    c.execute("SELECT id, name, wins, wins + losses AS matches FROM members WHERE tournament = %s ORDER BY wins DESC", (tournamentId,))
     standings = c.fetchall()
     DB.commit()
     DB.close()
     return standings
 
-def reportMatch(tournament, winner, loser):
+def reportMatch(tournamentId, winner, loser):
     """Records the outcome of a single match between two players.
 
     Args:
-        tournament: the unique ID of the tournament.
+        tournamentId: the unique ID of the tournament.
         winner: the ID number of the player who won.
         loser: the ID number of the player who lost.
     """
     DB = connect()
     c = DB.cursor()
-    c.execute("INSERT INTO matches (tournament, winner, loser) VALUES (%s, %s, %s)", (tournament, winner, loser))
+    c.execute("INSERT INTO matches (tournament, winner, loser) VALUES (%s, %s, %s)", (tournamentId, winner, loser))
     DB.commit()
 
     # Add the win to winner's record
@@ -149,7 +149,7 @@ def reportMatch(tournament, winner, loser):
 
     DB.close()
  
-def swissPairings(tournament):
+def swissPairings(tournamentId):
     """Returns a list of pairs of players for the next round of a match.
   
     Assuming that there are an even number of players registered, each player
@@ -165,12 +165,12 @@ def swissPairings(tournament):
         name2: the second player's name
 
     Args:
-        tournament: the unique ID of the tournament.
+        tournamentId: the unique ID of the tournament.
     """
 
     DB = connect()
     c = DB.cursor()
-    c.execute("SELECT id, name FROM members WHERE tournament = (%s) ORDER BY wins DESC", (tournament,))
+    c.execute("SELECT id, name FROM members WHERE tournament = (%s) ORDER BY wins DESC", (tournamentId,))
 
     pairings = []
 
