@@ -89,9 +89,9 @@ def testStandingsBeforeMatches():
                          "they have played any matches.")
     elif len(standings) > 2:
         raise ValueError("Only registered players should appear in standings.")
-    if len(standings[0]) != 4:
-        raise ValueError("Each playerStandings row should have four columns.")
-    [(id1, name1, wins1, matches1), (id2, name2, wins2, matches2)] = standings
+    if len(standings[0]) != 5:
+        raise ValueError("Each playerStandings row should have five columns.")
+    [(id1, name1, wins1, matches1, tournament1), (id2, name2, wins2, matches2, tournament2)] = standings
     if matches1 != 0 or matches2 != 0 or wins1 != 0 or wins2 != 0:
         raise ValueError(
             "Newly registered players should have no matches or wins.")
@@ -117,7 +117,7 @@ def testReportMatches():
     reportMatch(tournamentId, id1, id2)
     reportMatch(tournamentId, id3, id4)
     standings = playerStandings(tournamentId)
-    for (i, n, w, m) in standings:
+    for (i, n, w, m, t) in standings:
         if m != 1:
             raise ValueError("Each player should have one match recorded.")
         if i in (id1, id3) and w != 1:

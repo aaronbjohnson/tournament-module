@@ -32,3 +32,6 @@ CREATE TABLE matches (
     winner integer references members(id),
     loser integer references members(id)
 );
+
+CREATE VIEW standings AS
+SELECT id, name, wins, wins + losses AS matches, tournament FROM members

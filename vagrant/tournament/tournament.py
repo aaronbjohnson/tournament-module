@@ -116,7 +116,8 @@ def playerStandings(tournamentId):
 
     DB = connect()
     c = DB.cursor()
-    c.execute("SELECT id, name, wins, wins + losses AS matches FROM members WHERE tournament = %s ORDER BY wins DESC", (tournamentId,))
+    #c.execute("SELECT id, name, wins, wins + losses AS matches FROM members WHERE tournament = %s ORDER BY wins DESC", (tournamentId,))
+    c.execute("SELECT * FROM standings WHERE tournament = %s ORDER BY wins DESC", (tournamentId,))
     standings = c.fetchall()
     DB.commit()
     DB.close()
