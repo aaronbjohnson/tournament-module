@@ -84,8 +84,7 @@ def getTournamentId(name):
 def registerPlayer(name, tournament):
     """Adds a player to the tournament database.
   
-    The database assigns a unique serial id number for the player. (This
-    should be handled by your SQL database schema, not in your Python code.)
+    The database assigns a unique serial id number for the player.
   
     Args:
         name: the player's full name (need not be unique).
@@ -128,8 +127,8 @@ def reportMatch(tournament, winner, loser):
 
     Args:
         tournament: the unique ID of the tournament.
-        winner:  the ID number of the player who won.
-        loser:  the ID number of the player who lost.
+        winner: the ID number of the player who won.
+        loser: the ID number of the player who lost.
     """
     DB = connect()
     c = DB.cursor()
