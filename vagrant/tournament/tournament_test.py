@@ -126,24 +126,6 @@ def testReportMatches():
             raise ValueError("Each match loser should have zero wins recorded.")
     print "8. After a match, players have updated standings."
 
-def tempPairtest():
-    deleteMatches()
-    deletePlayers()
-    deleteTournaments()
-    test = "Test Tournament"
-    registerTournament(test)
-    tournamentId = getTournamentId(test)
-    registerPlayer("Twilight Sparkle", tournamentId)
-    registerPlayer("Fluttershy", tournamentId)
-    registerPlayer("Applejack", tournamentId)
-    registerPlayer("Pinkie Pie", tournamentId)
-    standings = playerStandings(tournamentId)
-    [id1, id2, id3, id4] = [row[0] for row in standings]
-    reportMatch(tournamentId, id1, id2)
-    reportMatch(tournamentId, id3, id4)
-    pairings = swissPairings(tournamentId)
-
-
 def testPairings():
     deleteMatches()
     deletePlayers()
@@ -181,7 +163,6 @@ if __name__ == '__main__':
     testRegisterCountDelete()
     testStandingsBeforeMatches()
     testReportMatches()
-    tempPairtest()
     testPairings()
     print "Success!  All tests pass!"
 

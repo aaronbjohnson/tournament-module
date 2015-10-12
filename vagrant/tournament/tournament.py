@@ -134,20 +134,13 @@ def reportMatch(tournamentId, winner, loser):
     DB = connect()
     c = DB.cursor()
     c.execute("INSERT INTO matches (tournament, winner, loser) VALUES (%s, %s, %s)", (tournamentId, winner, loser))
-    DB.commit()
 
     # Add the win to winner's record
-    DB = connect()
-    c = DB.cursor()
     c.execute("UPDATE members SET wins = wins + 1 WHERE id = (%s)", (winner,))
-    DB.commit()
 
     # Add the loss to loser's record
-    DB = connect()
-    c = DB.cursor()
     c.execute("UPDATE members SET losses = losses + 1 WHERE id = (%s)", (loser,))
     DB.commit()
-
     DB.close()
  
 def swissPairings(tournamentId):
