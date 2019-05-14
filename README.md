@@ -1,7 +1,12 @@
 # Tournament Module
 
-**Tournament Module** is a Python module that uses the PostgreSQL database to 
-keep track of players and matches in a Swiss-style game tournament.
+**Tournament Module** is a Python module that uses a PostgreSQL database to 
+keep track of players and matches in a [Swiss-style](https://en.wikipedia.org/wiki/Swiss-system_tournament) game tournament.
+
+The two main parts to this project are: 
+
+ 1. Defining the database schema (SQL table definitions) in tournament.sql
+ 2. Writing code that will use the database schema to track a Swiss tournament in tournament.py
 
 ## Contents
 
