@@ -45,11 +45,11 @@ python tournament_test.py
 If you discover any bugs, feel free to create an issue on GitHub. I also
 encourage you to help even more by forking and sending me a pull request.
 
-https://github.com/aj65461/tournament-module/issues
+https://github.com/aaronbjohnson/tournament-module/issues
 
 ## Maintainers
 
-* Aaron Johnson (https://github.com/aj65461)
+* Aaron Johnson (https://github.com/aaronbjohnson)
 
 ## License
 
